@@ -1,37 +1,40 @@
 <script setup>
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import HelloWorld from "./components/HelloWorld.vue";
-import "@vuepic/vue-datepicker/dist/main.css";
-import VueApexCharts from "vue3-apexcharts";
+import { watchEffect, watch, ref, onMounted } from '@vue/runtime-core';
+import '@vuepic/vue-datepicker/dist/main.css';
+import 'vue-multiselect/dist/vue-multiselect.min.css';
 
-const chartOptions = {
-  chart: {
-    id: "vuechart-example",
-  },
-  xaxis: {
-    categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998],
-  },
+const updateSelected = (selected) => {
+  console.log('selected', selected);
 };
 
-const series = [
-  {
-    name: "series-1",
-    data: [30, 40, 35, 50, 49, 60, 70, 91],
-  },
-];
+// watchEffect(() =>
+//   console.log('nav-topbar-ce', document.querySelector('nav-topbar-ce'))
+// );
+
+// setTimeout(() => {
+//
+// }, 1000);
+const navbar = ref(null);
+onMounted(() => {
+  navbar.value.addEventListener('update:route', updateSelected);
+});
 </script>
 
 <template>
   <!-- <HelloWorld msg="Vite + Vue" /> -->
-  <analytics-ce></analytics-ce>
-  <div>
-    <VueApexCharts
-      width="500"
-      type="bar"
-      :options="chartOptions"
-      :series="series"
-    ></VueApexCharts>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-1">
+        <sidebar-ce />
+      </div>
+      <div class="col-11">
+        <div class="row">
+          <nav-topbar-ce ref="navbar" @update:route="updateSelected" />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
