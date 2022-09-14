@@ -1,6 +1,5 @@
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
-import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -8,7 +7,7 @@ export default defineConfig({
     vue({
       template: {
         compilerOptions: {
-          isCustomElement: (tag) => tag.includes("-"),
+          isCustomElement: (tag) => tag.startsWith("bl-ce-"),
         },
       },
     }),
@@ -23,5 +22,8 @@ export default defineConfig({
     sourcemap: true,
     target: "esnext",
     minify: false,
+  },
+  server: {
+    port: 3000,
   },
 });

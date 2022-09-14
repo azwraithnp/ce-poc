@@ -1,53 +1,58 @@
 <script setup>
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import { watchEffect, watch, ref, onMounted } from '@vue/runtime-core';
-import '@vuepic/vue-datepicker/dist/main.css';
-import 'vue-multiselect/dist/vue-multiselect.min.css';
+import { ref, onMounted } from "@vue/runtime-core";
+import "@vuepic/vue-datepicker/dist/main.css";
+import "vue-multiselect/dist/vue-multiselect.min.css";
 
-const updateSelected = (selected) => {
-  console.log('selected', selected);
-};
+// const updateSelected = (selected) => {
+//   console.log("selected", selected);
+// };
 
-// watchEffect(() =>
-//   console.log('nav-topbar-ce', document.querySelector('nav-topbar-ce'))
-// );
-
-// setTimeout(() => {
-//
-// }, 1000);
-const navbar = ref(null);
-onMounted(() => {
-  navbar.value.addEventListener('update:route', updateSelected);
-});
+// const navbar = ref(null);
+// onMounted(() => {
+//   navbar.value.addEventListener("update:route", updateSelected);
+// });
 </script>
 
 <template>
   <!-- <HelloWorld msg="Vite + Vue" /> -->
   <div class="container-fluid">
-    <div class="row">
-      <div class="col-1">
-        <sidebar-ce />
+    <div class="row no-p">
+      <div class="col-side sidebar">
+        <bl-ce-sidebar />
       </div>
-      <div class="col-11">
-        <div class="row">
-          <nav-topbar-ce ref="navbar" @update:route="updateSelected" />
-        </div>
+
+      <div class="col-container">
+        <bl-ce-nav-topbar ref="navbar" @update:route="updateSelected" />
+        <router-view />
       </div>
     </div>
   </div>
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
+<style>
+.col-side {
+  width: 56px;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+
+.sidebar {
+  min-height: calc(100vh);
+  background-color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
+  z-index: 9;
 }
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+
+.no-p {
+  padding: 0;
+  margin: 0;
+}
+
+.container-fluid {
+  padding: 0;
+}
+
+.col-container {
+  width: calc(100% - 56px);
 }
 </style>
