@@ -16,7 +16,7 @@ export default defineConfig({
     lib: {
       entry: "./src/hello.js",
       formats: ["es", "cjs"],
-      name: "vue-web-comp",
+      name: "say-hello",
       fileName: (format) => (format === "es" ? "index.js" : "index.cjs"),
     },
     sourcemap: true,
